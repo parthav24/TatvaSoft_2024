@@ -279,6 +279,8 @@ namespace Data_Access_Layer
                         // Get the userdetails
                         var existingUserDetail = _cIDbContext.UserDetail
                             .FirstOrDefault(u => u.UserId == userDetail.UserId && u.IsDeleted == false);
+                        existingUserDetail.Name = userDetail.Name;
+                        existingUserDetail.Surname = userDetail.Surname;
                         existingUserDetail.ModifiedDate = DateTime.Now.ToUniversalTime();
                         existingUserDetail.MyProfile = userDetail.MyProfile;
                         existingUserDetail.WhyIVolunteer = userDetail.WhyIVolunteer;
@@ -310,6 +312,8 @@ namespace Data_Access_Layer
                             user.LastName = userDetail.Surname;
                             user.ModifiedDate = DateTime.Now.ToUniversalTime();
                         }
+
+                        
 
                         _cIDbContext.SaveChanges();
 

@@ -96,7 +96,7 @@ namespace Data_Access_Layer
             string result = "";
             try
             {
-                int mID = 1;
+                int mID = _cIDbContext.ContactUs.Max(u => u.Id) + 1;
                 contactUs.Id = mID;
                 contactUs.CreatedDate = DateTime.Now.ToUniversalTime();
                 _cIDbContext.ContactUs.Add(contactUs);
