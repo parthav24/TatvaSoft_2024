@@ -48,6 +48,10 @@ namespace Business_logic_Layer
         {
             return _dalMission.ClientSideMissionList(userid);
         }
+        public List<Missions> MissionClientList(SortestData data)
+        {
+            return _dalMission.MissionClientList(data);
+        }
         public List<MissionApplication> MissionApplicationList()
         {
             return _dalMission.MissionApplicationList();

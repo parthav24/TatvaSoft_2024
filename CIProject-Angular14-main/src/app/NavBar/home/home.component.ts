@@ -164,7 +164,9 @@ export class HomeComponent implements OnInit {
         this.totalMission = data.data.length;
       }
       else{
-        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+        console.log(data.message);
+        
+        this.toast.error({detail:"ERROR",summary:data.message,duration:300000});
         // this.toastr.error(data.message);
       }
   });

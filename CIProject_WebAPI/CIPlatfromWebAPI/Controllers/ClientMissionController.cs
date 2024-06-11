@@ -37,6 +37,22 @@ namespace Web_API.Controllers
             }
             return result;
         }
+        [HttpPost]
+        [Route("MissionClientList")]
+        public ResponseResult MissionClientList(SortestData data)
+        {
+            try
+            {
+                result.Data = _balMission.MissionClientList(data);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
 
         [HttpPost]
         [Route("ApplyMission")]
