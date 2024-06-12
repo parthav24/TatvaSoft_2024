@@ -24,55 +24,57 @@ export class SearchinSortingComponent implements OnInit {
 
   GetMissionCountryList(){
     this.service.GetMissionCountryList().subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+      // if(data.result == 1)
+      // {
         this.missionCountryList = data.data;
-      }
-      else{
-        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
-      }
+      // }
+      // else{
+      //   this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+      // }
     });
   }
   GetMissionCityList(){
-    this.service.GetMissionCityList().subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+    this.service.GetMissionCityList().subscribe((data:any)=>{      
+      // if(data.result == 1)
+      // {
         this.missionCityList = data.data;
-      }
-      else
-      {
-        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
-      }
+      // }
+      
+      // else
+      // {
+      //   this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+      // }
     });
   }
   GetMissionThemeList(){
     this.service.GetMissionThemeList().subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+      // if(data.result == 1)
+      // {
         this.missionThemeList = data.data;
-      }
-      else
-      {
-        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
-      }
+      // }
+      // else
+      // {
+      //   this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+      // }
     });
   }
   GetMissionSkillList(){
     this.service.GetMissionSkillList().subscribe((data:any)=>{
-        if(data.result == 1){
+        // if(data.result == 1){
           this.missionSkillList = data.data;
-        }
-        else
-        {
-          this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
-        }
+        // }
+        // else
+        // {
+        //   this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+        // }
     });
   }
   OnTextChange(text:any)
   {
     this.service.searchList.next(text);
   }
-  Onchange(e:any){
-    this.service.searchList.next(e.target.value);
+  Onchange(e: any) {
+    const selectedValue = e.target.value;
+    this.service.searchList.next(selectedValue);
   }
 }

@@ -444,5 +444,18 @@ namespace Data_Access_Layer
                 throw;
             }
         }
+        public Missions MissionDetailByMissionId(SortestData data)
+        {
+            Missions missionDetail = new Missions();
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return missionDetail;
+        }
     }
 }

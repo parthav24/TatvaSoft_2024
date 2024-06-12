@@ -16,8 +16,9 @@ declare var window:any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  searchText:any='';
   missionList:any[]=[];
-  userList:any[]=[];
+  userList:any[]=[];  
   page:number=1;
   missionPerPages :number = 9;
   listmissionPerPages:number = 5;
@@ -52,6 +53,7 @@ export class HomeComponent implements OnInit {
       data == null ? (this.loginUserId = loginUserDetail.userId) : (this.loginUserId = data.userId);
       data == null ? (this.loginUserName = loginUserDetail.fullName) : (this.loginUserName = data.fullName);
       data == null ? (this.loginemailAddress = loginUserDetail.emailAddress) : (this.loginemailAddress = data.emailAddress);
+      
     });
     this.AllMissionList();
     this.commonservice.searchList.subscribe((data:any)=>{
