@@ -21,6 +21,8 @@ namespace Data_Access_Layer.Repository
         public DbSet<MissionApplication> MissionApplication { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<UserSkills> UserSkills { get; set; }
+        public DbSet<MissionFavourites> MissionFavourites { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User", "CIProject");

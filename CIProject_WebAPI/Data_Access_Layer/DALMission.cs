@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq.Dynamic.Core;
 using System.Net;
 using System.Net.Mail;
+using MimeKit;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Data_Access_Layer
@@ -449,13 +450,91 @@ namespace Data_Access_Layer
             Missions missionDetail = new Missions();
             try
             {
-                
+
             }
             catch (Exception)
             {
                 throw;
             }
             return missionDetail;
+        }
+        public string AddMissionFavourite(MissionFavourites missionFavourites)
+        {
+            try
+            {
+                var newFavourite = new MissionFavourites
+                {
+                    MissionId = missionFavourites.MissionId,
+                    UserId = missionFavourites.UserId
+                };
+
+                _cIDbContext.MissionFavourites.Add(newFavourite);
+                _cIDbContext.SaveChanges();
+
+                return "Mission Added To favourites";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string RemoveMissionFavourite(MissionFavourites missionFavourites)
+        {
+            try
+            {
+                // Find the MissionFavourite record to remove
+                var favouriteToRemove = _cIDbContext.MissionFavourites
+                    .FirstOrDefault(f => f.MissionId == missionFavourites.MissionId && f.UserId == missionFavourites.UserId);
+
+                if (favouriteToRemove != null)
+                {
+                    // Remove the entity and save changes
+                    _cIDbContext.MissionFavourites.Remove(favouriteToRemove);
+                    _cIDbContext.SaveChanges();
+                }
+
+                return "Mission removed from Favourites";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string SendInviteMissionMail(List<MissionShareOrInvite> users)
+        {
+            string result = "";
+            try
+            {
+                foreach (var item in users)
+                {
+                    string callbackurl = item.baseUrl + "/volunteeringMission/" + item.MissionId;
+                    string mailTo = item.EmailAddress;
+                    string userName = item.UserFullName;
+                    string emailBody = "Hi " + userName + ",<br/><br/> Click the link below to suggest mission link <br/><br/> " + callbackurl;
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient();
+                    mail.From = new MailAddress(item.MissionShareUserEmailAddress);
+                    mail.To.Add(mailTo);
+                    mail.Subject = "Invite Mission Link";
+                    mail.Body = emailBody;
+                    mail.IsBodyHtml = true;
+                    SmtpServer.UseDefaultCredentials = false;
+                    NetworkCredential NetworkCred = new NetworkCredential(item.MissionShareUserEmailAddress, "passwordfromenv");
+                    SmtpServer.Credentials = NetworkCred;
+                    SmtpServer.EnableSsl = true;
+                    SmtpServer.Port = 587;
+                    SmtpServer.Host = "smtp.gmail.com";
+                    SmtpServer.Send(mail);
+                }
+                result = "Mission Invite Successfully";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
     }
 }
