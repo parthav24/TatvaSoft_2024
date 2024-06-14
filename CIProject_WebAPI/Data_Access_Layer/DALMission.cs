@@ -447,17 +447,34 @@ namespace Data_Access_Layer
         }
         public Missions MissionDetailByMissionId(SortestData data)
         {
-            Missions missionDetail = new Missions();
             try
             {
+                var missionDetail = _cIDbContext.Missions
+                    .FirstOrDefault(m => m.Id == data.MissionId);
 
+                if (missionDetail != null)
+                {
+                    // Ensure additional mappings and logic are correctly applied
+                    missionDetail.MissionSkillName = string.Join(",", missionDetail.MissionSkillName);
+                    missionDetail.MissionStatus = missionDetail.RegistrationDeadLine < DateTime.Now.AddDays(-1) ? "Closed" : "Available";
+                    missionDetail.MissionApplyStatus = _cIDbContext.MissionApplication
+                        .Any(ma => ma.MissionId == missionDetail.Id && ma.UserId == data.UserId) ? "Applied" : "Apply";
+                    missionDetail.MissionApproveStatus = _cIDbContext.MissionApplication
+                        .Any(ma => ma.MissionId == missionDetail.Id && ma.UserId == data.UserId && ma.Status == true) ? "Approved" : "Applied";
+                    missionDetail.MissionDateStatus = missionDetail.EndDate <= DateTime.Now.AddDays(-1) ? "MissionEnd" : "MissionRunning";
+                    missionDetail.MissionDeadLineStatus = missionDetail.RegistrationDeadLine <= DateTime.Now.AddDays(-1) ? "Closed" : "Running";
+                    missionDetail.MissionFavouriteStatus = "0";
+                    missionDetail.Rating = 0;
+                }
+
+                return missionDetail;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception("Failed to fetch mission details.", ex);
             }
-            return missionDetail;
         }
+
         public string AddMissionFavourite(MissionFavourites missionFavourites)
         {
             try
@@ -535,6 +552,34 @@ namespace Data_Access_Layer
                 throw;
             }
             return result;
+        }
+        public string AddMissionComment(MissionComment missionComment)
+        {
+            try
+            {
+                _cIDbContext.MissionComment.Add(missionComment);
+                _cIDbContext.SaveChanges();
+                return "Comment added successfully";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<MissionComment> MissionCommentListByMissionId(int missionId)
+        {
+            try
+            {
+                var missionCommentList = _cIDbContext.MissionComment
+                    .Where(mc => mc.MissionId == missionId)
+                    .ToList();
+                return missionCommentList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

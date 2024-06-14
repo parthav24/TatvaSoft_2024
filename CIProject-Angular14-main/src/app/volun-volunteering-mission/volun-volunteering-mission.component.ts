@@ -60,11 +60,14 @@ export class VolunVolunteeringMissionComponent implements OnInit {
   }
   FetchMissionDetail(missionId:any)
   {
+    
     let value={
       missionId:missionId,
       userId:this.loginUserId
-    }
+      }
       this.service.MissionDetailByMissionId(value).subscribe((data:any)=>{
+        console.log(data);
+        
         if(data.result == 1)
         {
               this.missionDetail = data.data;

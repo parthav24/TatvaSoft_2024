@@ -22,6 +22,7 @@ namespace Data_Access_Layer.Repository
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<UserSkills> UserSkills { get; set; }
         public DbSet<MissionFavourites> MissionFavourites { get; set; }
+        public DbSet<MissionComment> MissionComment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
