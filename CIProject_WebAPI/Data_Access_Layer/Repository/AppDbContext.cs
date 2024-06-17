@@ -23,6 +23,7 @@ namespace Data_Access_Layer.Repository
         public DbSet<UserSkills> UserSkills { get; set; }
         public DbSet<MissionFavourites> MissionFavourites { get; set; }
         public DbSet<MissionComment> MissionComment { get; set; }
+        public DbSet<Story> Story { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,8 @@ namespace Data_Access_Layer.Repository
             modelBuilder.Entity<Country>().ToTable("Country", "CIProject");
             modelBuilder.Entity<UserSkills>().ToTable("UserSkills", "CIProject");
             modelBuilder.Entity<ContactUs>().ToTable("ContactUs", "CIProject");
+            modelBuilder.Entity<MissionComment>().ToTable("Comments", "CIProject");
+            modelBuilder.Entity<Story>().ToTable("Story", "CIProject");
 
             base.OnModelCreating(modelBuilder);
         }
