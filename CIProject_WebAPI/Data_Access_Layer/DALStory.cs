@@ -79,16 +79,91 @@ namespace Data_Access_Layer
 
         public Story StoryDetailById(int id)
         {
-            Story storyById = new Story();
             try
             {
-                storyById = _cIDbContext.Story.FirstOrDefault(m => m.Id == id);
+                var storyById = _cIDbContext.Story
+                                            .FirstOrDefault(s => s.Id == id);
+
+                return storyById;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to fetch story details.", ex);
+            }
+        }
+
+        public List<Story> AdminSideStoryList()
+        {
+            List<Story> storyList = new List<Story>();
+            try
+            {
+                storyList = _cIDbContext.Story.Where(s => !s.IsDeleted).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
-            return storyById;
+            return storyList;
         }
+
+        public string StoryStatusActive(Story story)
+        {
+            try
+            {
+                var storyToUpdate = _cIDbContext.Story
+                                                .FirstOrDefault(s => s.Id == story.Id);
+                if (storyToUpdate != null)
+                {
+                    storyToUpdate.IsActive = true;
+                    _cIDbContext.SaveChanges();
+                    return "Story Activated";
+                }
+                else
+                {
+                    return "Story not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update story active status.", ex);
+            }
+        }
+
+        public string DeleteStory(int id)
+        {
+            try
+            {
+                var storyToDelete = _cIDbContext.Story.FirstOrDefault(s => s.Id == id);
+                if (storyToDelete != null)
+                {
+                    _cIDbContext.Story.Remove(storyToDelete);
+                    _cIDbContext.SaveChanges();
+                    return "Story Deleted Successfully";
+                }
+                else
+                {
+                    return "Story not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete story.", ex);
+            }
+        }
+
+
+        public Story StoryDetailByIdAdmin(int id)
+        {
+            try
+            {
+                var storyById = _cIDbContext.Story.FirstOrDefault(s => s.Id == id);
+                return storyById;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to fetch story details.", ex);
+            }
+        }
+
     }
 }

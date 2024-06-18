@@ -75,7 +75,7 @@ namespace Web_API.Controllers
         [Authorize]
         public ResponseResult MissionDetailByMissionId(SortestData data)
         {
-            Console.Write("1");
+            Console.WriteLine("3");
             try
             {
                 result.Data = _balMission.MissionDetailByMissionId(data);

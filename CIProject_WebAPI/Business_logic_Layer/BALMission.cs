@@ -67,6 +67,7 @@ namespace Business_logic_Layer
         }
         public Missions MissionDetailByMissionId(SortestData data)
         {
+            Console.WriteLine("2");
             return _dalMission.MissionDetailByMissionId(data);
         }
         public string AddMissionFavourite(MissionFavourites missionFavourites)

@@ -64,9 +64,9 @@ export class VolunVolunteeringMissionComponent implements OnInit {
     let value={
       missionId:missionId,
       userId:this.loginUserId
-      }
-      this.service.MissionDetailByMissionId(value).subscribe((data:any)=>{
-        console.log(data);
+    }
+    console.log(value);
+    this.service.MissionDetailByMissionId(value).subscribe((data:any)=>{
         
         if(data.result == 1)
         {
