@@ -76,14 +76,14 @@ export class VolunteeringTimesheetComponent implements OnInit {
   }
   MissionTitleList(){
     this.service.VolunteeringMissionList(this.loginUserId).subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+      // if(data.result == 1)
+      // {
         this.missionList = data.data;
-      }
-      else
-      {
-        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
-      }
+      // }
+      // else
+      // {
+      //   this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+      // }
     },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
 

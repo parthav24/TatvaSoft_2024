@@ -8,7 +8,6 @@ using System.Linq.Dynamic.Core;
 using System.Net;
 using System.Net.Mail;
 using MimeKit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Data_Access_Layer
 {
