@@ -138,5 +138,99 @@ namespace Data_Access_Layer
                 throw;
             }
         }
+        public List<VolunteeringGoals> GetVolunteeringGoalsList(int userId)
+        {
+            List<VolunteeringGoals> volunteeringGoals = new List<VolunteeringGoals>();
+            try
+            {
+                volunteeringGoals = _cIDbContext.VolunteeringGoals
+               .Where(mt => mt.UserId == userId && !mt.IsDeleted)
+               .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return volunteeringGoals;
+        }
+        public VolunteeringGoals GetVolunteeringGoalsListById(int id)
+        {
+            VolunteeringGoals volunteeringGoals = new VolunteeringGoals();
+            try
+            {
+                volunteeringGoals = _cIDbContext.VolunteeringGoals
+                .FirstOrDefault(m => m.Id == id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return volunteeringGoals;
+        }
+        public string AddVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            string result = "";
+
+            try
+            {
+                int mID = _cIDbContext.VolunteeringGoals.Max(u => u.Id) + 1;
+                volunteeringGoals.Id = mID;
+                volunteeringGoals.CreatedDate = DateTime.Now.ToUniversalTime();
+                volunteeringGoals.IsDeleted = false;
+                _cIDbContext.VolunteeringGoals.Add(volunteeringGoals);
+                _cIDbContext.SaveChanges();
+                result = "VolunteeringGoals added successfully.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public string UpdateVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            string result = "";
+
+            try
+            {
+                var volunteeringGoalss = _cIDbContext.VolunteeringGoals.FirstOrDefault(m => m.Id == volunteeringGoals.Id);
+                volunteeringGoalss.ModifiedDate = DateTime.Now.ToUniversalTime();
+                volunteeringGoalss.Action = volunteeringGoals.Action;
+                volunteeringGoalss.Date = volunteeringGoals.Date;
+                volunteeringGoalss.Message = volunteeringGoals.Message;
+                _cIDbContext.SaveChanges();
+                result = "VolunteeringGoals Updated successfully.";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public string DeleteVolunteeringGoals(int id)
+        {
+            try
+            {
+                string result = "";
+                var volunteeringgoals = _cIDbContext.VolunteeringGoals.FirstOrDefault(m => m.Id == id);
+                if (volunteeringgoals != null)
+                {
+                    volunteeringgoals.IsDeleted = true;
+                    _cIDbContext.SaveChanges();
+                    result = "Delete VolunteeringGoals Detail Successfully.";
+                }
+                else
+                {
+                    result = "VolunteeringGoals not found.";
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

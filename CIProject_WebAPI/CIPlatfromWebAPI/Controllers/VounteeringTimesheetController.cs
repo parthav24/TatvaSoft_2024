@@ -125,5 +125,91 @@ namespace Web_API.Controllers
             }
             return result;
         }
+        [HttpGet]
+        [Route("GetVolunteeringGoalsList/{userId}")]
+        [Authorize]
+        public ResponseResult GetVolunteeringGoalsList(int userId)
+        {
+            try
+            {
+                result.Data = _balVolunteeringTimesheet.GetVolunteeringGoalsList(userId);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
+        [HttpGet]
+        [Route("GetVolunteeringGoalsListById/{id}")]
+        [Authorize]
+        public ResponseResult GetVolunteeringGoalsListById(int id)
+        {
+            try
+            {
+                result.Data = _balVolunteeringTimesheet.GetVolunteeringGoalsListById(id);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+        [HttpPost]
+        [Route("AddVolunteeringGoals")]
+        [Authorize]
+        public ResponseResult AddVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            try
+            {
+                result.Data = _balVolunteeringTimesheet.AddVolunteeringGoals(volunteeringGoals);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+        [HttpPost]
+        [Route("UpdateVolunteeringGoals")]
+        [Authorize]
+        public ResponseResult UpdateVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            try
+            {
+                result.Data = _balVolunteeringTimesheet.UpdateVolunteeringGoals(volunteeringGoals);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+        [HttpDelete]
+        [Route("DeleteVolunteeringGoals/{id}")]
+        [Authorize]
+        public ResponseResult DeleteVolunteeringGoals(int id)
+        {
+            try
+            {
+                result.Data = _balVolunteeringTimesheet.DeleteVolunteeringGoals(id);
+                result.Result = ResponseStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                result.Result = ResponseStatus.Error;
+                result.Message = ex.Message;
+            }
+            return result;
+        }
     }
 }

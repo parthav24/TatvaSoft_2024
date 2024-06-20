@@ -146,6 +146,8 @@ export class VolunteeringTimesheetComponent implements OnInit {
   {
     if(this.volunteeringHoursForm.valid)
       {
+          console.log(value);
+          
           this.service.AddVolunteeringHours(value).subscribe((data:any)=>{
             if(data.result == 1)
             {

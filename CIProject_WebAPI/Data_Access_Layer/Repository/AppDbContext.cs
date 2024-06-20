@@ -25,6 +25,8 @@ namespace Data_Access_Layer.Repository
         public DbSet<MissionComment> MissionComment { get; set; }
         public DbSet<Story> Story { get; set; }
         public DbSet<VolunteeringHours> VolunteeringHours { get; set; }
+        public DbSet<VolunteeringGoals> VolunteeringGoals { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +43,7 @@ namespace Data_Access_Layer.Repository
             modelBuilder.Entity<MissionComment>().ToTable("Comments", "CIProject");
             modelBuilder.Entity<Story>().ToTable("Story", "CIProject");
             modelBuilder.Entity<VolunteeringHours>().ToTable("VolunteeringHours", "CIProject");
+            modelBuilder.Entity<VolunteeringGoals>().ToTable("VolunteeringGoals", "CIProject");
 
             base.OnModelCreating(modelBuilder);
         }

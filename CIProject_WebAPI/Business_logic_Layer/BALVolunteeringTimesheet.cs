@@ -37,5 +37,26 @@ namespace Business_logic_Layer
         {
             return _dalVolunteeringTimesheet.DeleteVolunteeringHours(id);
         }
+        public List<VolunteeringGoals> GetVolunteeringGoalsList(int userId)
+        {
+            return _dalVolunteeringTimesheet.GetVolunteeringGoalsList(userId);
+        }
+        public VolunteeringGoals GetVolunteeringGoalsListById(int id)
+        {
+            return _dalVolunteeringTimesheet.GetVolunteeringGoalsListById(id);
+        }
+        public string AddVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            return _dalVolunteeringTimesheet.AddVolunteeringGoals(volunteeringGoals);
+        }
+
+        public string UpdateVolunteeringGoals(VolunteeringGoals volunteeringGoals)
+        {
+            return _dalVolunteeringTimesheet.UpdateVolunteeringGoals(volunteeringGoals);
+        }
+        public string DeleteVolunteeringGoals(int id)
+        {
+            return _dalVolunteeringTimesheet.DeleteVolunteeringGoals(id);
+        }
     }
 }
