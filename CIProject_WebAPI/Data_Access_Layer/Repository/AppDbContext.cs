@@ -26,6 +26,7 @@ namespace Data_Access_Layer.Repository
         public DbSet<Story> Story { get; set; }
         public DbSet<VolunteeringHours> VolunteeringHours { get; set; }
         public DbSet<VolunteeringGoals> VolunteeringGoals { get; set; }
+        public DbSet<CMS> CMS { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +45,7 @@ namespace Data_Access_Layer.Repository
             modelBuilder.Entity<Story>().ToTable("Story", "CIProject");
             modelBuilder.Entity<VolunteeringHours>().ToTable("VolunteeringHours", "CIProject");
             modelBuilder.Entity<VolunteeringGoals>().ToTable("VolunteeringGoals", "CIProject");
+            modelBuilder.Entity<CMS>().ToTable("CMS", "CIProject");
 
             base.OnModelCreating(modelBuilder);
         }

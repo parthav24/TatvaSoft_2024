@@ -27,5 +27,22 @@ namespace Business_logic_Layer
         {
             return _dalStory.StoryDetailById(id);
         }
+        public List<Story> AdminSideStoryList()
+        {
+            return _dalStory.AdminSideStoryList();
+        }
+
+        public string StoryStatusActive(Story story)
+        {
+            return _dalStory.StoryStatusActive(story);
+        }
+        public string DeleteStory(int id)
+        {
+            return _dalStory.DeleteStory(id);
+        }
+        public Story StoryDetailByIdAdmin(int id)
+        {
+            return _dalStory.StoryDetailByIdAdmin(id);
+        }
     }
 }
